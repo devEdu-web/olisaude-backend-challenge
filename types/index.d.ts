@@ -1,21 +1,21 @@
-import { Health_Problem } from "@prisma/client"
+import User from '../src/app/entities/User'
 
+interface Health_Problem {
+  name: string,
+  degree: number
+}
 
 interface IUpdateQuery {
   name?: string
   birth_date?: Date
   sex?: IUserSex
-  health_problems: Omit<Health_Problem, 'user_id' | 'id'>
+  health_problems: Health_Problem
 
 }
 
-interface IUserRepository {
-  create(user: User): Promise<User | IGeneralError>
-  update(query: IUpdateQuery, id: number): Promise<User | IGeneralError>
-  findById(id: number): Promise<User | null | IGeneralError>
-  find(): Promise<User[] | IGeneralError>
-}
-
-interface IGeneralError {
-  message: string
+interface IClientRepository {
+  create(user: User): Promise<User>
+  update(query: IUpdateQuery, id: number): Promise<User>
+  findById(id: number): Promise<User | null>
+  find(): Promise<User[]>
 }

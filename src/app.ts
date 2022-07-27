@@ -16,7 +16,7 @@ class App {
   }
 
   routes() {
-    this.express.use('/client', clientsRouter)
+    this.express.use('/clients', clientsRouter)
   }
 
 }
