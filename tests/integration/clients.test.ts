@@ -1,26 +1,18 @@
 import app from '../../src/app';
 import request from 'supertest';
-import { PrismaClient } from '@prisma/client';
-
-const testClient = new PrismaClient({
-  datasources: {
-    db: {
-      url: 'mysql://root:Wyl4!d5cYmbSw@@localhost:3306/test_olisaude?schema=public',
-    },
-  },
-});
-
+import Client from '../../src/database/Client';
 
 describe('Client repository', () => {
   afterAll(async () => {
-    await testClient.$disconnect();
+    await Client.$disconnect();
   });
 
   afterEach(async () => {
-    await testClient.user.deleteMany({});
+    await Client.health_Problem.deleteMany();
+    await Client.user.deleteMany();
   });
 
-  it('Should create a user', async () => {
+  it('Should create a client', async () => {
     const mockClient = {
       name: 'Eduardo',
       birth_date: 'March 25, 2022',
@@ -32,6 +24,14 @@ describe('Client repository', () => {
       .post('/clients/new')
       .send(mockClient)
       .expect(201);
+
+    expect(response.body).toBeDefined();
+  });
+
+  it('Should return all clients', async () => {
+    const response = await request(app).get('/clients/all').expect(200);
+
+    console.log(response.body);
 
     expect(response.body).toBeDefined();
   });

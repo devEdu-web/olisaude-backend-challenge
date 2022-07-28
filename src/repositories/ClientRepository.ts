@@ -1,6 +1,6 @@
 import { User } from '../app/entities/User'
 import { IUpdateQuery, IClientRepository } from '../../types/index'
-import Client from '../app/database/Client'
+import Client from '../database/Client'
 
 export class ClientRepository implements IClientRepository {
   async create(user: User): Promise<User> {
@@ -76,7 +76,12 @@ export class ClientRepository implements IClientRepository {
     try {
       const users = await Client.user.findMany({
         include: {
-          health_problems: true
+          health_problems: {
+            select: {
+              name: true,
+              degree: true
+            }
+          }
         }
       })
       return users
