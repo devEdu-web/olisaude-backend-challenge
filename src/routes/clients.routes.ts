@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createClientController, getClientsController } from '../app/controllers/index'
+import { createClientController, getClientsController, getClientController } from '../app/controllers/index'
 const clientsRouter = Router()
 
 clientsRouter.post('/new', (req, res, next) => {
@@ -8,6 +8,10 @@ clientsRouter.post('/new', (req, res, next) => {
 
 clientsRouter.get('/all', (req, res, next) => {
   return getClientsController.handle(req, res)
+})
+
+clientsRouter.get('/client/:id', (req, res, next) => {
+  return getClientController.handle(req, res)
 })
 
 export default clientsRouter

@@ -17,6 +17,7 @@ export class ClientRepository implements IClientRepository {
           }
         },
         select: {
+          id: true,
           name: true,
           birth_date: true,
           sex: true,
