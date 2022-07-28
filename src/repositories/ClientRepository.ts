@@ -24,7 +24,8 @@ export class ClientRepository implements IClientRepository {
           health_problems: {
             select: {
               name: true,
-              degree: true
+              degree: true,
+              id: true
             }
           }
         }
@@ -37,18 +38,23 @@ export class ClientRepository implements IClientRepository {
     }
   }
 
-  async update(query: IUpdateQuery, id: number): Promise<User> {
+  async update(updateQuery: IUpdateQuery, id: number): Promise<User> {
     try {
       const user = await Client.user.update({
         where: {
           id
         },
-        data: query,
+        data: updateQuery,
         select: {
           name: true,
           birth_date: true,
           sex: true,
-          health_problems: true
+          health_problems: {
+            select: {
+              name: true,
+              degree: true
+            }
+          }
         }
       })
       return user
@@ -64,7 +70,13 @@ export class ClientRepository implements IClientRepository {
           id
         },
         include: {
-          health_problems: true
+          health_problems: {
+            select: {
+              degree: true,
+              name: true,
+              id: true
+            }
+          }
         }
       })
       return user
@@ -80,7 +92,8 @@ export class ClientRepository implements IClientRepository {
           health_problems: {
             select: {
               name: true,
-              degree: true
+              degree: true,
+              id: true
             }
           }
         }

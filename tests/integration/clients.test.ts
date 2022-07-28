@@ -11,9 +11,6 @@ describe('Client repository', () => {
     await Client.user.deleteMany();
   });
 
-  // afterEach(async () => {
-  // });
-
   it('Should create a client', async () => {
     const mockClient = {
       name: 'Eduardo',
@@ -42,9 +39,31 @@ describe('Client repository', () => {
     .get(`/clients/client/${createdUserId}`)
     .expect(200)
 
-    console.log(response.body)
+    // console.log(response.body)
 
     expect(response.body).toBeDefined()
+
+  })
+
+  it('Should update a client by id', async () => {
+    const updatedClient = {
+      name: 'Client updated',
+      birth_date: 'March 25, 2022',
+      sex: 'F',
+      health_problems: [{ name: 'SDTs', degree: 5 }],
+    }
+    const response = await request(app)
+    .put(`/clients/update/${createdUserId}`)
+    .send(updatedClient)
+    .expect(200)
+
+    console.log(response.body)
+
+    console.log(createdUserId)
+
+    expect(0).toBe(1)
+
+    // expect(response.body.name).toBe(updatedClient.name)
 
   })
 

@@ -14,6 +14,7 @@ export class CreateClientController {
       const userSaved = await this.CreateClientService.execute(newUser)
       return res.status(201).json(userSaved)
     } catch (error) {
+      console.log(error)
       return res.status(400).json(error)
     }
   }

@@ -15,7 +15,7 @@ interface IUpdateQuery {
 
 interface IClientRepository {
   create(user: User): Promise<User>
-  update(query: IUpdateQuery, id: number): Promise<User>
+  update(updatedUser: Partial<User>, id: number): Promise<User>
   findById(id: number): Promise<User | null>
   find(): Promise<User[]>
 }
