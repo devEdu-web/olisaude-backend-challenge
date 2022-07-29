@@ -50,20 +50,22 @@ describe('Client repository', () => {
       name: 'Client updated',
       birth_date: 'March 25, 2022',
       sex: 'F',
-      health_problems: [{ name: 'SDTs', degree: 5 }],
     }
     const response = await request(app)
     .put(`/clients/update/${createdUserId}`)
     .send(updatedClient)
+    .expect(201)
+
+    expect(response.body).toBeDefined()
+
+  })
+
+  it('Should return clients with high risk', async () => {
+    const response = await request(app)
+    .get('/clients/high_risk')
     .expect(200)
 
-    console.log(response.body)
-
-    console.log(createdUserId)
-
-    expect(0).toBe(1)
-
-    // expect(response.body.name).toBe(updatedClient.name)
+    expect(response.body).toBeDefined()
 
   })
 

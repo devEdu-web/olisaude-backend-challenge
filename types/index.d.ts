@@ -5,6 +5,11 @@ interface Health_Problem {
   degree: number
 }
 
+interface IHighRiskClient extends Omit<User, 'health_problems'>{
+  ds: number,
+  score: number
+}
+
 interface IUpdateQuery {
   name?: string
   birth_date?: Date
@@ -18,4 +23,5 @@ interface IClientRepository {
   update(updatedUser: Partial<User>, id: number): Promise<User>
   findById(id: number): Promise<User | null>
   find(): Promise<User[]>
+  getHighRisk(): Promise<unknown>
 }
