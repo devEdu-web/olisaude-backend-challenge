@@ -25,3 +25,19 @@ interface IClientRepository {
   find(): Promise<User[]>
   getHighRisk(): Promise<unknown>
 }
+
+interface IHealthProblemRepository {
+  update(healthProblemId: number, updateHealthProblemQuery: IUpdateHealthProblemQuery): Promise<IUpdatedHealthProblem>
+}
+
+interface IUpdateHealthProblemQuery {
+  name?: string
+  degree?: number
+}
+
+interface IUpdatedHealthProblem {
+  id: number,
+  name: string,
+  degree: number,
+  user: User
+}

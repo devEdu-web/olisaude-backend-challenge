@@ -3,6 +3,7 @@ import request from 'supertest';
 import Client from '../../src/database/Client';
 
 let createdUserId:number;
+let createdHealthProblems: any = []
 
 describe('Client repository', () => {
   afterAll(async () => {
@@ -25,6 +26,7 @@ describe('Client repository', () => {
       .expect(201);
 
     createdUserId = Number(response.body.id)
+    createdHealthProblems = response.body.health_problems
 
     expect(response.body).toBeDefined();
   });
@@ -64,6 +66,25 @@ describe('Client repository', () => {
     const response = await request(app)
     .get('/clients/high_risk')
     .expect(200)
+
+    expect(response.body).toBeDefined()
+
+  })
+
+  it('Should update health problem from client', async () => {
+
+    const healthProblemId = createdHealthProblems[0].id
+    const mockHealthProblem = {
+      name: 'updated',
+      degree: 1000
+    }
+
+    const response = await request(app)
+    .put(`/health_problems/update/${healthProblemId}`)
+    .send(mockHealthProblem)
+    .expect(201)
+
+    console.log(response.body)
 
     expect(response.body).toBeDefined()
 

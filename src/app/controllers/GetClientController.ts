@@ -10,8 +10,8 @@ export class GetClientController {
     try {
       const user = await this.GetClientService.execute(Number(id))
       res.json(user)
-    } catch (error) {
-      
+    } catch (error: any) {
+      throw new Error(error.message)
     }
   }
 }
